@@ -1,26 +1,135 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Fonts */
+.font-heading {
+  font-family: var(--font-alegreya);
 }
 
+.font-body {
+  font-family: var(--font-source-sans);
+}
+
+/* Theme Colors */
+:root {
+  /* Backgrounds */
+  --background: #EEF2FF;
+  --surface: #FFFFFF;
+
+  /* Text */
+  --foreground: #4B5563;
+  --heading: #0A1F5C;
+
+  /* Brand Colors */
+  --primary: #0A1F5C;
+  --primary-hover: #0D2268;
+
+  --secondary: #3B82F6;
+  --secondary-hover: #2563EB;
+
+  /* Accent */
+  --accent: #F59E0B;
+  --accent-hover: #FBBF24;
+
+  /* Foregrounds */
+  --primary-foreground: #FFFFFF;
+  --secondary-foreground: #FFFFFF;
+  --accent-foreground: #FFFFFF;
+
+  /* Borders */
+  --border: #E8EFFE;
+}
+
+/* Tailwind Theme Variables */
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-heading: var(--heading);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  --color-border: var(--border);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent-foreground: var(--accent-foreground);
 }
 
+/* Keep same branding in dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #EEF2FF;
+    --surface: #FFFFFF;
+
+    --foreground: #4B5563;
+    --heading: #0A1F5C;
+
+    --primary: #0A1F5C;
+    --primary-hover: #0D2268;
+
+    --secondary: #3B82F6;
+    --secondary-hover: #2563EB;
+
+    --accent: #F59E0B;
+    --accent-hover: #FBBF24;
+
+    --border: #E8EFFE;
   }
 }
 
+/* Base */
+html,
 body {
-  background: var(--background);
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-source-sans);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-alegreya);
+  color: var(--heading);
+}
+
+/* Selection */
+::selection {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-hover);
 }

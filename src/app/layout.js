@@ -1,14 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import dns from "node:dns";
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import { Alegreya, Source_Sans_3 } from "next/font/google";
+import "./globals.css";
+import { ToastContainer } from "react-toastify";
+
+const sourceSansPro = Source_Sans_3({
   subsets: ["latin"],
+  variable: "--font-source-sans",
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const alegreya = Alegreya({
   subsets: ["latin"],
+  variable: "--font-alegreya",
+  weight: ["400", "500", "700"],
 });
 
 export const metadata = {
@@ -20,9 +26,14 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${sourceSansPro.variable} ${alegreya.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <main>
+          {children}
+          <ToastContainer />
+        </main>
+      </body>
     </html>
   );
 }
