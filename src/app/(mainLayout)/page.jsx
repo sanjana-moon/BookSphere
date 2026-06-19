@@ -1,5 +1,4 @@
-import HeroSlider from '@/component/Hero';
-import React from 'react';
+import HeroSlider from "@/component/homePage/Hero";
 
 const HomePage = () => {
     return (
