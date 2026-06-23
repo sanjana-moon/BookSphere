@@ -10,45 +10,54 @@ import {
     Form,
     Input,
     Label,
-    Separator,
     TextField,
 } from "@heroui/react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const LoginPage = () => {
     const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        const formData = new FormData(data.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+        try {
+            const { data: signInData, error: signInError } = await authClient.signIn.email({
+                email: data.email,
+                password: data.password,
+            });
 
-        const { data: signInData, error } = await authClient.signIn.email({
-            email: user.email,
-            password: user.password,
-        });
+            if (signInError) {
+                toast.error(signInError.message || "Registration not succeed...");
+                return;
+            }
 
-        if (signInData) {
             toast.success("Login successful");
             router.push("/");
-        } else {
-            toast.error(error?.message || "Login failed");
+        } catch (err) {
+            console.log(err);
+            toast.error("Something went wrong");
         }
     };
 
-    const handleGoogleSignin = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-        });
-
-        toast.success("Signin successful");
+    const handleGoogleLogin = async () => {
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+            toast.success("Signin successful");
+        } catch (err) {
+            console.log(err);
+            toast.error("Google login failed");
+        }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 py-12"
+        <div className="min-h-screen flex items-center justify-center px-4 py-12 relative"
             style={{
                 background: "linear-gradient(135deg, #EEF2FF 0%, #E8EFFE 100%)",
             }}
@@ -64,34 +73,52 @@ const Login = () => {
                         Welcome Back
                     </h1>
                     <p className="text-sm text-[#6B7280] mt-1">
-                        Login to your BookSphere account
+                        Access your Ticketo account and purchase event tickets.
                     </p>
                 </div>
 
                 {/* FORM */}
-                <Form onSubmit={onSubmit} className="flex flex-col gap-4">
-
+                <Form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-4 w-full"
+                >
                     {/* EMAIL */}
-                    <TextField isRequired name="email" type="email">
-                        <Label className="text-[#0A1F5C]">Email</Label>
+                    <TextField 
+                        isRequired 
+                        isInvalid={!!errors.email}
+                    >
+                        <Label className="text-[#0A1F5C]">Email Address</Label>
                         <Input
+                            {...register("email", { required: "Email is required" })}
+                            type="email"
                             placeholder="Enter your email"
                             className="border border-[#E8EFFE] focus:border-[#2563EB]"
                         />
-                        <FieldError />
+                        <FieldError>{errors.email?.message}</FieldError>
                     </TextField>
 
                     {/* PASSWORD */}
-                    <TextField isRequired name="password" type="password">
+                    <TextField 
+                        isRequired 
+                        isInvalid={!!errors.password}
+                    >
                         <Label className="text-[#0A1F5C]">Password</Label>
                         <Input
-                            placeholder="Enter your password"
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 8,
+                                    message: "Minimum 8 characters required",
+                                },
+                            })}
+                            type="password"
+                            placeholder="••••••••"
                             className="border border-[#E8EFFE] focus:border-[#2563EB]"
                         />
                         <Description className="text-[#6B7280] text-xs">
                             Must be at least 8 characters
                         </Description>
-                        <FieldError />
+                        <FieldError>{errors.password?.message}</FieldError>
                     </TextField>
 
                     {/* LOGIN BUTTON */}
@@ -100,18 +127,20 @@ const Login = () => {
                         className="w-full bg-[#2563EB] text-white font-semibold rounded-lg hover:bg-[#0A1F5C] transition-all"
                     >
                         <Check />
-                        Login
+                        Sign In
                     </Button>
                 </Form>
 
                 {/* DIVIDER */}
-                <div className="flex items-center gap-3 my-1">
-                    <span className="text-xs text-center mx-auto">OR</span>
+                <div className="flex items-center gap-3 my-4">
+                    <div className="flex-grow border-t border-[#E8EFFE]" />
+                    <span className="text-xs text-[#6B7280] font-semibold uppercase">Or Login With</span>
+                    <div className="flex-grow border-t border-[#E8EFFE]" />
                 </div>
 
                 {/* GOOGLE LOGIN */}
                 <Button
-                    onClick={handleGoogleSignin}
+                    onClick={handleGoogleLogin}
                     className="w-full bg-white border border-[#E8EFFE] text-[#0A1F5C] font-semibold hover:bg-[#EEF2FF] transition-all"
                 >
                     <FaGoogle className="text-[#2563EB]" />
@@ -120,12 +149,12 @@ const Login = () => {
 
                 {/* SIGNUP LINK */}
                 <p className="text-center text-sm text-[#6B7280] mt-5">
-                    Don’t have an account?{" "}
+                    Don't have an account?{" "}
                     <Link
-                        href="/signup"
+                        href="/register"
                         className="text-[#2563EB] font-semibold hover:text-[#0A1F5C] hover:underline"
                     >
-                        Register
+                        Sign Up
                     </Link>
                 </p>
 
@@ -134,4 +163,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;

@@ -60,7 +60,7 @@ function BookStack({ books, cycleMs = 2400, exitMs = 600 }) {
     }, [books, cycleMs, exitMs]);
 
     return (
-        <div className="relative w-60 h-80">
+        <div className="relative w-100 h-130">
             {books.map((book, bookIdx) => {
                 const pos = order.indexOf(bookIdx);
                 const isExiting = exitingIdx === bookIdx;
@@ -81,7 +81,7 @@ function BookStack({ books, cycleMs = 2400, exitMs = 600 }) {
                         key={book}
                         src={book}
                         alt="book"
-                        className="absolute top-0 left-0 w-60 h-80 object-cover rounded-xl shadow-2xl border-4 border-white"
+                        className="absolute top-0 left-0 w-85 h-110 object-cover md:object-fit rounded-xl shadow-2xl border-4 border-white"
                         style={{ zIndex: books.length - pos }}
                         animate={target}
                         transition={
@@ -149,7 +149,7 @@ export default function HeroSlider() {
                             </motion.h1>
 
                             <motion.p
-                                className="mt-4 text-gray-200 text-lg"
+                                className="mt-4 text-white text-lg"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.35 }}
@@ -169,7 +169,7 @@ export default function HeroSlider() {
                     </AnimatePresence>
                 </div>
 
-                <div className="flex w-1/2 justify-end md:justify-center mb-5">
+                <div className="flex w-1/2 justify-end md:justify-center mt-8 ml-5">
                     <BookStack books={allBooks} />
                 </div>
             </div>

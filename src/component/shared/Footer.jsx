@@ -15,7 +15,7 @@ import { RiTwitterXLine } from "react-icons/ri";
 
 const Footer = () => {
     return (
-        <footer className="text-[#1B2F4F] font-fauna">
+        <footer className="text-[#1B2F4F] font-fauna border-t border-[#6C91B2] ">
             <div className="mx-auto grid grid-cols-1 gap-10 container py-14 md:grid-cols-3 px-4 md:px-2">
                 <div className="mx-auto lg:mx-0">
                     <Image
@@ -24,6 +24,9 @@ const Footer = () => {
                         width={180}
                         height={120}
                         className="mb-4 w-auto mx-auto lg:mx-0" />
+                    <p className="max-w-sm text-sm leading-7 italic text-justify lg:text-start">
+                        Delivering Knowledge to Your Doorstep
+                    </p>
                     <p className="max-w-sm text-sm leading-7 italic text-justify lg:text-start">
                         "BookSphere connects passionate readers with an endless universe of stories—cultivating the ideal space for literary exploration and intellectual community."
                     </p>
@@ -81,9 +84,6 @@ const Footer = () => {
             <div className="border-t border-white/10 py-4 text-center text-sm text-[#1B2F4F]">
                 © {new Date().getFullYear()} BookSphere. All rights reserved.
             </div>
-
-
-
         </footer>
     );
 };
