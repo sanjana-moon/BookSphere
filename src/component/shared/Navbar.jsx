@@ -40,7 +40,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/browse-books", label: "Browse Books" },
+    { href: "/books", label: "Browse Books" },
   ];
 
   const dashboardLinks = [

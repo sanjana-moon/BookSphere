@@ -44,9 +44,7 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook }) => {
             if (result.modifiedCount) {
                 setIsModalOpen(false);
                 toast.success("Book updated successfully");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
+                router.refresh();
             }
         } catch (error) {
             console.error(error);
