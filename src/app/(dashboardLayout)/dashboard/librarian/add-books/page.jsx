@@ -41,7 +41,6 @@ const AddBookPage = () => {
         librarianEmail: session.user.email,
         librarianName: session.user.name,
 
-        approvalStatus: "Pending Approval",
         publishStatus: "Unpublished",
 
         availability: "Available",

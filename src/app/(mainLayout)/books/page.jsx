@@ -1,22 +1,31 @@
-import { baseURL } from "@/lib/api/baseUrl";
-import BrowseBooksClient from "./BrowseBooksClient";
+import { fetchBooks } from "@/lib/api/books/data";
+import BrowseBooksClient from "./BrowseBooksClient"; // Adjust this path if necessary
 
-const fetchBooks = async () => {
-  const res = await fetch(`${baseURL}/api/books`, {
-    cache: "no-store",
-  });
+const BrowseBooksPage = async ({ searchParams }) => {
+    // Await searchParams in Next.js App Router
+    const params = await searchParams;
+    
+    const search = params?.search || "";
+    const category = params?.category || "all";
+    const sort = params?.sort || "title";
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch books");
-  }
+    // Build the query string/object required by your backend
+    const query = new URLSearchParams({ search, category, sort });
+    
+    // Fetch filtered data directly from the server
+    const books = await fetchBooks(query);
 
-  return res.json();
-};
+    console.log('books', books);
+    
 
-const BrowseBooksPage = async () => {
-  const books = await fetchBooks();
-
-  return <BrowseBooksClient initialBooks={books} />;
+    return (
+        <BrowseBooksClient 
+            initialBooks={books} 
+            currentSearch={search}
+            currentCategory={category}
+            currentSort={sort}
+        />
+    );
 };
 
 export default BrowseBooksPage;

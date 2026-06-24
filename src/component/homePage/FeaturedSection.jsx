@@ -1,20 +1,10 @@
 import BookCard from "@/component/books/BookCard";
-import { baseURL } from "@/lib/api/baseUrl";
-
-const fetchBooks = async () => {
-    const res = await fetch(`${baseURL}/api/books`, {
-        cache: "no-store",
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch books");
-    }
-
-    return res.json();
-};
+import { fetchFeaturedBooks } from "@/lib/api/books/data";
 
 const FeaturedBooks = async () => {
-    const books = await fetchBooks();
+    const books = await fetchFeaturedBooks();
+
+    console.log('books', books)
     return (
         <section className="container mx-auto py-16">
 

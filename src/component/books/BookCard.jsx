@@ -25,7 +25,7 @@ const BookCard = ({ book }) => {
                         alt={book.title}
                         width={400}
                         height={500}
-                        className="w-full h-64 object-cover"
+                        className="w-full h-70 object-fit"
                     />
 
                     {book.publishStatus !== "Published" && (
@@ -55,19 +55,19 @@ const BookCard = ({ book }) => {
                             ৳{book.deliveryFee}
                         </span>
 
-                        <Button
-                            as={Link}
-                            href={`/books/${book._id}`}
-                            size="sm"
-                            className="bg-[#2563EB] text-white"
-                        >
-                            View Details
-                        </Button>
+                        <Link href={`/books/${book._id}`}>
+                            <Button
+                                size="sm"
+                                className="bg-[#2563EB] text-white rounded-md hover:bg-blue-700"
+                            >
+                                View Details
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 
             </Card>
-        </motion.div>
+        </motion.div >
     );
 };
 

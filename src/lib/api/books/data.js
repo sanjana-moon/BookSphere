@@ -8,13 +8,17 @@ export const myBooks = async (email) => {
 
     return result;
 };
+
 export const fetchBooks = async (query) => {
-    const result = await serverFetch(`/api/books?${query.toString()}`);
+    const result = await serverFetch(
+        `/api/books?${query?.toString?.() || ""}`
+    );
 
     return result;
 };
+
 export const fetchFeaturedBooks = async () => {
-    const result = await serverFetch(`/api/books/featured`);
+    const result = await serverFetch(`/api/books`);
 
     return result;
 };
