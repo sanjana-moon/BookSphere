@@ -50,10 +50,7 @@ const AddBookPage = () => {
         updatedAt: new Date(),
       };
 
-      console.log('bookData', bookData);
-
       const result = await addBooks(bookData)
-      console.log('result', result)
 
       if (result.insertedId) {
         toast.success("Book submitted successfully");

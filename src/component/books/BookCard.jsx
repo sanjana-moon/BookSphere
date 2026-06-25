@@ -16,7 +16,7 @@ const BookCard = ({ book }) => {
                 duration: 0.25,
             }}
         >
-            <Card className="h-full overflow-hidden border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg">
+            <Card className="h-full overflow-hidden border border-blue-100 bg-white/80 backdrop-blur-sm shadow-lg rounded-md">
 
                 <div className="relative">
 
@@ -25,7 +25,7 @@ const BookCard = ({ book }) => {
                         alt={book.title}
                         width={400}
                         height={500}
-                        className="w-full h-70 object-fit"
+                        className="w-full h-70 object-cover"
                     />
 
                     {book.publishStatus !== "Published" && (

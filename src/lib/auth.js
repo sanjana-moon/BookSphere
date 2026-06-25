@@ -23,18 +23,11 @@ export const auth = betterAuth({
             role: {
                 type: "string",
                 defaultValue: "user",
-                input: true, // allow client to set this on signup
             },
             isBlocked: {
                 type: "boolean",
                 defaultValue: false,
-                input: false, // server-controlled — don't trust client input
-            },
-            isPremium: {
-                type: "boolean",
-                defaultValue: false,
-                input: false, // server-controlled — don't trust client input
             },
         },
-    }
+    },
 });

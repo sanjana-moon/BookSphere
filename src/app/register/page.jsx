@@ -26,7 +26,6 @@ const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("FORM DATA:", data);
 
     if (!data.email || !data.password) {
       toast.error("Email and password required");

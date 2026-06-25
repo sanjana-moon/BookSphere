@@ -22,6 +22,9 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
         setBooks(updated || []);
     };
 
+    // console.log({editingBook});
+    
+
     return (
         <>
             <div className="min-h-screen bg-[linear-gradient(135deg,#EEF2FF_0%,#E8EFFE_100%)] p-3 md:p-8">
@@ -150,6 +153,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                 setIsModalOpen={setIsModalOpen}
                 editingBook={editingBook}
                 onSuccess={refreshBooks}
+                setEditingBook={setEditingBook}
             />
 
             {/* Delete Modal */}

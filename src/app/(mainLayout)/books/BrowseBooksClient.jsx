@@ -5,6 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { motion } from "motion/react";
 import { Input } from "@heroui/react";
 import BookCard from "@/component/books/BookCard";
+import { FaSearch } from "react-icons/fa";
 
 const BrowseBooksClient = ({ initialBooks, currentSearch, currentCategory, currentSort }) => {
     const router = useRouter();
@@ -23,7 +24,6 @@ const BrowseBooksClient = ({ initialBooks, currentSearch, currentCategory, curre
         return () => clearTimeout(delayDebounceFn);
     }, [search]);
 
-    // Helper utility to sync state changes into the active browser URL
     const updateQueryParams = (key, value) => {
         const params = new URLSearchParams(searchParams.toString());
         if (value && value !== "all") {
@@ -34,9 +34,7 @@ const BrowseBooksClient = ({ initialBooks, currentSearch, currentCategory, curre
         router.push(`${pathname}?${params.toString()}`, { scroll: false });
     };
 
-    // Derived from your raw full dataset if you need a static list of tags, 
-    // or hardcode them if your database handles category listings separately.
-    const categories = ["all", "Fiction", "Sci-Fi", "Biography", "History"];
+    const categories = ["all", "Fiction", "Biography", "History", "Non Fiction", "Science", "Technology", "Fantasy", "Children"]
 
     return (
         <div className="min-h-screen bg-[linear-gradient(135deg,#EEF2FF_0%,#E8EFFE_100%)]">
@@ -67,17 +65,19 @@ const BrowseBooksClient = ({ initialBooks, currentSearch, currentCategory, curre
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                         {/* Search Input */}
-                        <Input
-                            placeholder="Search by title or author..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-
+                        <div className="flex items-center bg-blue-50 rounded-md justify-center gap-1 border-blue-400">
+                            <FaSearch className="text-blue-700" />
+                            <input
+                                type="text"
+                                placeholder="Search by title or author..."
+                                className="pl-10"
+                            />
+                        </div>
                         {/* Category Select */}
                         <select
                             value={currentCategory}
                             onChange={(e) => updateQueryParams("category", e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-blue-200 bg-white outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 rounded-xl border border-blue-300 bg-blue-50 outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             {categories.map((cat) => (
                                 <option key={cat} value={cat}>
@@ -90,11 +90,12 @@ const BrowseBooksClient = ({ initialBooks, currentSearch, currentCategory, curre
                         <select
                             value={currentSort}
                             onChange={(e) => updateQueryParams("sort", e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-blue-200 bg-white outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 rounded-xl border border-blue-300 bg-blue-50 outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="title">Title A-Z</option>
-                            <option value="fee-low">Fee Low → High</option>
-                            <option value="fee-high">Fee High → Low</option>
+                            <option value="fee-low">Fee → Low → High</option>
+                            <option value="fee-high">Fee → High → Low</option>
+                            <option value="newest">Newest</option>
                         </select>
                     </div>
                 </motion.div>

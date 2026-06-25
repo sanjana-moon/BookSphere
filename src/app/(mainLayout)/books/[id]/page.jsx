@@ -13,7 +13,7 @@ const fetchBook = async (id) => {
 
 export default async function BookDetailsPage({ params }) {
     const { id } = await params;
-    const book = await fetchBook(id);
+    const book = await fetchBook(id);    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#EEF2FF] via-white to-[#F8FAFF] py-12 px-4">
@@ -99,7 +99,7 @@ export default async function BookDetailsPage({ params }) {
                             <div className="sm:col-span-2">
                                 <p className="text-slate-500 text-sm">Librarian</p>
                                 <p className="font-medium text-blue-600">
-                                    {book?.ownerEmail}
+                                    {book?.librarianName}
                                 </p>
                             </div>
 

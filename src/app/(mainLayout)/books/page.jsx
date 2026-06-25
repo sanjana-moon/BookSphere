@@ -13,10 +13,7 @@ const BrowseBooksPage = async ({ searchParams }) => {
     const query = new URLSearchParams({ search, category, sort });
     
     // Fetch filtered data directly from the server
-    const books = await fetchBooks(query);
-
-    console.log('books', books);
-    
+    const books = await fetchBooks(query);    
 
     return (
         <BrowseBooksClient 

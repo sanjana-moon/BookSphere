@@ -3,8 +3,6 @@ import { fetchFeaturedBooks } from "@/lib/api/books/data";
 
 const FeaturedBooks = async () => {
     const books = await fetchFeaturedBooks();
-
-    console.log('books', books)
     return (
         <section className="container mx-auto py-16">
 

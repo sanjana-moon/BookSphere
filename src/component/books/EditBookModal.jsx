@@ -3,7 +3,7 @@ import { uploadImage } from "@/component/utils/uploadImage";
 import { Button, Input, Card, TextArea } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ const CATEGORIES = [
     "Children",
 ];
 
-const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook }) => {
+const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBook }) => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
@@ -26,7 +26,20 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook }) => {
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm();
+
+    useEffect(() => {
+        if (editingBook) {
+            reset({
+                title: editingBook.title,
+                author: editingBook.author,
+                deliveryFee: editingBook.deliveryFee,
+                category: editingBook.category,
+                description: editingBook.description,
+            });
+        }
+    }, [editingBook, reset]);
 
     const onSubmit = async (data) => {
         try {
@@ -50,11 +63,15 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook }) => {
             console.error(error);
             toast.error("Failed to update book");
         } finally {
+            setEditingBook(null)
             setLoading(false);
         }
     };
 
-    if (!isModalOpen) return null;
+    if (!isModalOpen) {
+        // setEditingBook(null)
+        return null
+    }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
