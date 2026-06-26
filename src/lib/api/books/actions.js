@@ -27,12 +27,34 @@ export const updateStatus = async (data, id) => {
 };
 
 export const toggleBookPublish = async (data, id) => {
-    const result = await serverMutation(
-        `/api/admin/books/${id}/publish`,
-        "PATCH", data
-    );
+  const result = await serverMutation(
+    `/api/admin/books/${id}/publish`,
+    "PATCH", data
+  );
 
-    revalidatePath("/dashboard/admin/manage-books");
+  revalidatePath("/dashboard/admin/manage-books");
 
-    return result;
+  return result;
+};
+
+export const changeUserRole = async (id, role) => {
+  const result = await serverMutation(
+    `/api/admin/users/${id}/role`,
+    "PATCH",
+    { role }
+  );
+
+  revalidatePath("/dashboard/admin/manage-users");
+
+  return result;
+};
+
+export const deleteUser = async (id) => {
+  const result = await deleteMutation(
+    `/api/admin/users/${id}`
+  );
+
+  revalidatePath("/dashboard/admin/manage-users");
+
+  return result;
 };

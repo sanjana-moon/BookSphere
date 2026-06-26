@@ -9,19 +9,15 @@ import { deleteBooks, toggleBookPublish, updateStatus } from "@/lib/api/books/ac
 const ManageBooksClient = ({ books: initialBooks }) => {
     const [books, setBooks] = useState(initialBooks || []);
 
-    // Toggles the backend and frontend state for Publishing
     const handleTogglePublish = async (book) => {
         try {
             const newStatus = book.publishStatus === "published" ? "unpublished" : "published";
-
             await toggleBookPublish({ publishStatus: newStatus }, book._id);
-
             setBooks((prev) =>
                 prev.map((item) =>
                     item._id === book._id ? { ...item, publishStatus: newStatus } : item
                 )
             );
-
             toast.success(`Book ${newStatus} successfully.`);
         } catch (err) {
             console.error(err);
@@ -29,11 +25,9 @@ const ManageBooksClient = ({ books: initialBooks }) => {
         }
     };
 
-    // Toggles the backend and frontend state for Approval
     const handleToggleApproval = async (book) => {
         try {
             const newStatus = book.approvalStatus === "approved" ? "pending" : "approved";
-
             await updateStatus({ approvalStatus: newStatus }, book._id);
 
             setBooks((prev) =>

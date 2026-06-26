@@ -31,3 +31,6 @@ export const fetchFeaturedBooks = async () => {
     return result;
 };
 
+export const fetchUsers = async () => {
+    return await serverFetch("/api/admin/users");
+};
