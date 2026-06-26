@@ -13,7 +13,16 @@ export const fetchBooks = async (query) => {
     const result = await serverFetch(
         `/api/books?${query?.toString?.() || ""}`
     );
+    return result;
+};
 
+export const fetchPendingBooks = async (query) => {
+    const result = await serverFetch(`/api/admin/pending-books`);
+    return result;
+};
+
+export const fetchAllBooks = async (query) => {
+    const result = await serverFetch(`/api/admin/books`);
     return result;
 };
 
@@ -22,3 +31,4 @@ export const fetchFeaturedBooks = async () => {
 
     return result;
 };
+

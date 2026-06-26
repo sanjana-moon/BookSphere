@@ -28,9 +28,13 @@ const BookCard = ({ book }) => {
                         className="w-full h-70 object-cover"
                     />
 
-                    {book.publishStatus !== "Published" && (
-                        <span className="absolute top-3 right-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
+                    {book.publishStatus !== "published" ? (
+                        <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
                             Unavailable
+                        </span>
+                    ) : (
+                        <span className="absolute top-1 right-1 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+                        Available
                         </span>
                     )}
                 </div>

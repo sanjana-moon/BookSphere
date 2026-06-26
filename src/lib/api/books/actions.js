@@ -20,14 +20,8 @@ export const deleteBooks = async (id) => {
   return res;
 };
 
-// ✅ NEW
-export const togglePublishStatus = async (id) => {
-  const res = await serverMutation(
-    `/api/books/${id}/publish`,
-    "PATCH"
-  );
-
-  revalidatePath("/dashboard/librarian/inventory");
-
-  return res;
+export const updateStatus = async (data, id) => {
+  const result = await serverMutation(`/api/admin/books/${id}`, "PATCH", data);
+  revalidatePath("/api/admin/books")
+  return result;
 };

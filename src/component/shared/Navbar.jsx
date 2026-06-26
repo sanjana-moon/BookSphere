@@ -47,7 +47,7 @@ const Navbar = () => {
     { href: "/dashboard", label: "Dashboard" },
     { href: "/my-orders", label: "My Orders" },
     { href: "/wishlist", label: "Wishlist" },
-  ];  
+  ];
 
   return (
     <nav className="sticky top-0 z-50 border-b border-[#E8EFFE] bg-[#EEF2FF]/80 backdrop-blur-md shadow-sm">
@@ -209,9 +209,12 @@ const Navbar = () => {
             onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
           >
             {user ? (
-              <Avatar
+              <Image
                 src={user.image}
-                name={user.name}
+                alt={user.name}
+                width={50}
+                height={50}
+                className="rounded-full"
               />
             ) : (
               <RxAvatar className="text-3xl text-[#0A1F5C]" />

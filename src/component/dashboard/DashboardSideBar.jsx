@@ -41,7 +41,7 @@ const adminMenu = [
     { key: "overview", label: "Overview", icon: FaTachometerAlt, href: "/dashboard/admin" },
     { key: "approval-queue", label: "Book Approval Queue", icon: FaCheckCircle, href: "/dashboard/admin/approval-queue" },
     { key: "users", label: "Manage Users", icon: FaUserShield, href: "/dashboard/admin/users" },
-    { key: "books", label: "Manage All Books", icon: FaBook, href: "/dashboard/admin/books" },
+    { key: "books", label: "Manage All Books", icon: FaBook, href: "/dashboard/admin/manage-books" },
     { key: "transactions", label: "View All Transactions", icon: FaHistory, href: "/dashboard/admin/transactions" },
 ];
 
