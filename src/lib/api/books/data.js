@@ -28,7 +28,6 @@ export const fetchAllBooks = async (query) => {
 
 export const fetchFeaturedBooks = async () => {
     const result = await serverFetch(`/api/books`);
-
     return result;
 };
 

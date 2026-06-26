@@ -1,14 +1,8 @@
-import { fetchAllBooks } from '@/lib/api/books/data';
-import React from 'react';
+import { fetchAllBooks } from "@/lib/api/books/data";
+import ManageBooksClient from "./ManageBooksClient";
 
-const ManageBooks = async() => {
-    const books = await fetchAllBooks()
-    
-    return (
-        <div>
-            <h3>Total books: {books.length}</h3>
-        </div>
-    );
-};
+export default async function ManageBooks() {
+    const books = await fetchAllBooks();
 
-export default ManageBooks;
+    return <ManageBooksClient books={books} />;
+}

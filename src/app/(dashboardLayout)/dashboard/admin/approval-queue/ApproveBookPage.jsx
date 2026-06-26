@@ -5,7 +5,7 @@ import { Card, Button } from "@heroui/react";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { deleteBooks, updateStatus } from "@/lib/api/books/actions";
-import { Delete } from "@gravity-ui/icons";
+import { RiDeleteBack2Line } from "react-icons/ri";
 
 const ApproveBooksPage = ({ books: initialBooks }) => {
     const [books, setBooks] = useState(initialBooks || []);
@@ -120,7 +120,7 @@ const ApproveBooksPage = ({ books: initialBooks }) => {
                                             <td className="px-6 py-5">
                                                 <div className="flex justify-center gap-3">
                                                     <Button
-                                                        color="success"
+                                                        className="bg-blue-50 border border-blue-500 text-blue-600 rounded-md hover:bg-blue-100 hover:text-blue-800"
                                                         startContent={<FaCheck />}
                                                         onPress={() =>
                                                             handleApprove(book)
@@ -130,13 +130,13 @@ const ApproveBooksPage = ({ books: initialBooks }) => {
                                                     </Button>
 
                                                     <Button
-                                                        className="bg-red-50 border-red-500 text-red-600"
+                                                        className="bg-red-50 border-red-500 text-red-600 hover:bg-red-100 hover:text-red-800"
                                                         startContent={<FaTrash />}
                                                         onPress={() =>
                                                             handleDelete(book._id)
                                                         }
                                                     >
-                                                        <Delete />
+                                                        <RiDeleteBack2Line />
                                                         Delete
                                                     </Button>
                                                 </div>

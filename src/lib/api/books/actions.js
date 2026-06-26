@@ -25,3 +25,14 @@ export const updateStatus = async (data, id) => {
   revalidatePath("/api/admin/books")
   return result;
 };
+
+export const toggleBookPublish = async (data, id) => {
+    const result = await serverMutation(
+        `/api/admin/books/${id}/publish`,
+        "PATCH", data
+    );
+
+    revalidatePath("/dashboard/admin/manage-books");
+
+    return result;
+};
