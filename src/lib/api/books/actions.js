@@ -58,3 +58,14 @@ export const deleteUser = async (id) => {
 
   return result;
 };
+
+export const updateDeliveryStatus = async (id) => {
+  const result = await serverMutation(
+    `/api/librarian/deliveries/${id}`,
+    "PATCH"
+  );
+
+  revalidatePath("/dashboard/librarian/deliveries");
+
+  return result;
+};

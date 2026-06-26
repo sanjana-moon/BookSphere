@@ -42,3 +42,9 @@ export const fetchTransactions = async () => {
 export const fetchAdminDashboard = async () => {
     return await serverFetch("/api/admin/dashboard");
 };
+
+export const fetchDeliveries = async (email) => {
+    return await serverFetch(
+        `/api/librarian/deliveries/${email}`
+    );
+};
