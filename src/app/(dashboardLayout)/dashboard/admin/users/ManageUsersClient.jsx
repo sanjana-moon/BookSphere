@@ -4,10 +4,8 @@ import { useState } from "react";
 import { Card, Button } from "@heroui/react";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import {
-    changeUserRole,
-    deleteUser,
-} from "@/lib/api/books/actions";
+import { changeUserRole } from "@/lib/api/books/actions";
+import { deleteUser } from "better-auth/api";
 
 const ManageUsersClient = ({ users: initialUsers }) => {
     const [users, setUsers] = useState(initialUsers || []);
@@ -44,10 +42,7 @@ const ManageUsersClient = ({ users: initialUsers }) => {
             console.error(err);
             toast.error("Delete failed.");
         }
-    };
-
-    console.log("users from client", users);
-    
+    };    
 
     return (
         <div className="min-h-screen bg-[linear-gradient(135deg,#EEF2FF_0%,#E8EFFE_100%)] p-6">

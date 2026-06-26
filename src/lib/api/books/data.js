@@ -34,3 +34,7 @@ export const fetchFeaturedBooks = async () => {
 export const fetchUsers = async () => {
     return await serverFetch("/api/admin/users");
 };
+
+export const fetchTransactions = async () => {
+    return await serverFetch("/api/admin/transactions");
+};

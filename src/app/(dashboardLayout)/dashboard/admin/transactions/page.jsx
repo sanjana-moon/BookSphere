@@ -1,10 +1,14 @@
-import React from 'react';
+import { fetchTransactions } from "@/lib/api/books/data";
+import AllTransactionClient from "./AllTransactionClient";
 
-const AllTransactionPage = () => {
+
+const AllTransactionPage = async () => {
+    const transactions = await fetchTransactions();
+
     return (
-        <div>
-            All transactions are here
-        </div>
+        <AllTransactionClient
+            transactions={transactions}
+        />
     );
 };
 
