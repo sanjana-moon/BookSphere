@@ -58,8 +58,8 @@ const AddBookPage = () => {
         redirect("/all-books")
       }
     } catch (error) {
-      console.error(error);
       toast.error("Failed to submit book");
+      console.error(error);
     } finally {
       setLoading(false);
     }

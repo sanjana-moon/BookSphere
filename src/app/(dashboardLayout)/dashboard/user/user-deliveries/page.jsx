@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchBooks } from "@/lib/api/books/data";
+import { baseURL } from "@/lib/api/baseUrl";
 import {
     Card,
     Chip,
@@ -9,16 +9,26 @@ import {
 import { useEffect, useState } from "react";
 import { FaBook, FaTruck } from "react-icons/fa";
 
+import { useSession } from "@/lib/auth-client";
+
+
 const DeliveryPage = () => {
     const [deliveries, setDeliveries] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const { data: session } = useSession();
+    const email = session?.user?.email;
+    
     useEffect(() => {
+        if (!email) return;
+
         const fetchDeliveries = async () => {
             try {
-                const res = await fetchBooks("/api/");
-                const data = await res.json();
+                const res = await fetch(
+                    `${baseURL}/api/books/deliveries/${email}`
+                );
 
+                const data = await res.json();
                 setDeliveries(data || []);
             } catch (error) {
                 console.error(error);
@@ -28,7 +38,7 @@ const DeliveryPage = () => {
         };
 
         fetchDeliveries();
-    }, []);
+    }, [email]);
 
     if (loading) {
         return (
@@ -131,12 +141,12 @@ const DeliveryPage = () => {
                                             <Chip
                                                 color={
                                                     delivery.deliveryStatus ===
-                                                    "Delivered"
+                                                        "Delivered"
                                                         ? "success"
                                                         : delivery.deliveryStatus ===
-                                                          "Processing"
-                                                        ? "primary"
-                                                        : "warning"
+                                                            "Processing"
+                                                            ? "primary"
+                                                            : "warning"
                                                 }
                                             >
                                                 {delivery.deliveryStatus}

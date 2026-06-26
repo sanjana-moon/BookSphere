@@ -4,17 +4,16 @@ import { Button, Card, Modal } from "@heroui/react";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { deleteBooks } from "@/lib/api/books/actions";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const DeleteBookModal = ({ isDeleteOpen, setIsDeleteOpen, id }) => {
-    const router = useRouter();
 
     const handleDeleteBook = async () => {
         const res = await deleteBooks(id);
         if (res?.deletedCount > 0) {
             toast.success("Event deleted successfully");
             setIsDeleteOpen(false)
-            router.refresh();
+            redirect('/dashboard/librarian/inventory')
         }
     }
 

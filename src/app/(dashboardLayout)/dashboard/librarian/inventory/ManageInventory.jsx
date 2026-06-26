@@ -72,12 +72,12 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                     <td className="px-6 py-5 text-slate-600">{book.category}</td>
                                                     <td className="px-6 py-5 text-slate-600">৳{book.deliveryFee}</td>
                                                     <td className="px-6 py-5">
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.approvalStatus === "Approved" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.approvalStatus === "approved" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
                                                             {book.approvalStatus}
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-5">
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "Published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
                                                             {book.publishStatus}
                                                         </span>
                                                     </td>
@@ -91,7 +91,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                                 onPress={() => { setDeletedId(book._id); setIsDeleteOpen(true); }}>
                                                                 <FaTrash />
                                                             </Button>
-                                                            {book.approvalStatus === "Approved" && (
+                                                            {book.approvalStatus === "approved" && (
                                                                 <Button isIconOnly size="sm"
                                                                     className={book.publishStatus === "Published" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}>
                                                                     {book.publishStatus === "Published" ? <FaEyeSlash /> : <FaCheckCircle />}
@@ -114,7 +114,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                 <p className="text-sm text-slate-600">Category: {book.category}</p>
                                                 <p className="text-sm text-slate-600">Delivery Fee: ৳{book.deliveryFee}</p>
                                                 <div className="flex flex-wrap gap-2">
-                                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.approvalStatus === "Approved" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.approvalStatus === "approved" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
                                                         {book.approvalStatus}
                                                     </span>
                                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "Published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
@@ -130,7 +130,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                         onPress={() => { setDeletedId(book._id); setIsDeleteOpen(true); }}>
                                                         <FaTrash />
                                                     </Button>
-                                                    {book.approvalStatus === "Approved" && (
+                                                    {book.approvalStatus === "approved" && (
                                                         <Button size="sm"
                                                             className={book.publishStatus === "Published" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}>
                                                             {book.publishStatus === "Published" ? "Unpublish" : "Publish"}

@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 
 const userMenu = [
     { key: "overview", label: "Overview", icon: FaTachometerAlt, href: "/dashboard/user" },
-    { key: "deliveries", label: "Delivery History", icon: FaTruck, href: "/dashboard/user/deliveries" },
+    { key: "deliveries", label: "Delivery History", icon: FaTruck, href: "/dashboard/user/user-deliveries" },
     { key: "reading-list", label: "My Reading List", icon: FaBookOpen, href: "/dashboard/user/reading-list" },
     { key: "reviews", label: "My Reviews", icon: FaStar, href: "/dashboard/user/reviews" },
 ];

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const CATEGORIES = [
     "Fiction",
@@ -57,7 +57,7 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBoo
             if (result.modifiedCount) {
                 setIsModalOpen(false);
                 toast.success("Book updated successfully");
-                router.refresh();
+                redirect('/dashboard/librarian/inventory')
             }
         } catch (error) {
             console.error(error);

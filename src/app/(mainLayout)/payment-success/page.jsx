@@ -132,7 +132,7 @@ export default async function PaymentSuccess({ searchParams }) {
 
                 <CardFooter className="flex justify-center gap-3 py-8">
 
-                    <Link href="/dashboard/my-deliveries">
+                    <Link href="/dashboard/user/user-deliveries">
                         <Button
                             className="bg-[#2563EB] text-white"
                             endContent={<FaArrowRight />}
