@@ -1,10 +1,11 @@
-import React from 'react';
+import { fetchAdminDashboard } from "@/lib/api/books/data";
+import AdminDashboardClient from "./AdminDashboardClient";
 
-const AdminDashboardPage = () => {
+const AdminDashboardPage = async () => {
+    const dashboard = await fetchAdminDashboard();
+
     return (
-        <div>
-            This is admin
-        </div>
+        <AdminDashboardClient dashboard={dashboard} />
     );
 };
 

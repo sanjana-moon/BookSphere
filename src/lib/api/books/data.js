@@ -38,3 +38,7 @@ export const fetchUsers = async () => {
 export const fetchTransactions = async () => {
     return await serverFetch("/api/admin/transactions");
 };
+
+export const fetchAdminDashboard = async () => {
+    return await serverFetch("/api/admin/dashboard");
+};
