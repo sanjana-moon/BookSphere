@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, Button } from "@heroui/react";
 
-const BookCard = ({ book }) => {
+const FeaturedCard = ({ book }) => {
     return (
         <motion.div
             whileHover={{
@@ -23,7 +23,7 @@ const BookCard = ({ book }) => {
                         alt={book.title}
                         width={400}
                         height={500}
-                        className="w-full h-70 object-cover"
+                        className="w-full h-100 object-cover"
                     />
                     {book.publishStatus !== "published" ? (
                         <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
@@ -67,4 +67,4 @@ const BookCard = ({ book }) => {
     );
 };
 
-export default BookCard;
+export default FeaturedCard;

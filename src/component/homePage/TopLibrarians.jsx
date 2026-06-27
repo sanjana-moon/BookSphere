@@ -51,7 +51,7 @@ const displayLibrarians = [
 
 const TopLibrarians = () => {
     return (
-        <section className="py-20 bg-[#EEF2FF]">
+        <section className="py-20 bg-[#3B82F6]">
             <div className="container mx-auto px-4 max-w-6xl">
 
                 {/* Header */}

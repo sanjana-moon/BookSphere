@@ -10,10 +10,9 @@ export const myBooks = async (email) => {
 };
 
 export const fetchBooks = async (query) => {
-    const result = await serverFetch(
-        `/api/books?${query?.toString?.() || ""}`
+    return await serverFetch(
+        `/api/books?${query?.toString() || ""}`
     );
-    return result;
 };
 
 export const fetchDeliveryHistory = async (email) => {
@@ -55,8 +54,12 @@ export const fetchAllBooks = async (query) => {
 };
 
 export const fetchFeaturedBooks = async () => {
-    const result = await serverFetch(`/api/books`);
-    return result;
+    const query = new URLSearchParams({
+        page: 1,
+        limit: 6,
+    });
+
+    return await serverFetch(`/api/books?${query.toString()}`);
 };
 
 export const fetchUsers = async () => {
