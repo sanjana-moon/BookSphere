@@ -44,11 +44,6 @@ const Navbar = () => {
     { href: "/books", label: "Browse Books" },
   ];
 
-  // const dashboardLinks = [
-  //   { href: "/dashboard", label: "Dashboard" },
-  //   { href: "/my-orders", label: "My Orders" },
-  //   { href: "/wishlist", label: "Wishlist" },
-  // ];
   const role = user?.role;
   let dashboardLinks = [];
 
@@ -277,17 +272,28 @@ const Navbar = () => {
                 </li>
               ))}
 
-              {user &&
-                dashboardLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={navLinkClass(item.href)}
-                    >
-                      {item.label}
+              {user && (
+                <>
+                  <li className="pt-2 border-t border-blue-200">
+                    <Link href="/dashboard">
+                      <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">
+                        Dashboard
+                      </p>
                     </Link>
                   </li>
-                ))}
+
+                  {dashboardLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={navLinkClass(item.href)}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+              )}
             </ul>
           </motion.div>
         )}

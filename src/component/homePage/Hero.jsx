@@ -7,6 +7,7 @@ import book2 from "@/component/assets/images/Book2.jpg";
 import book3 from "@/component/assets/images/Book3.webp";
 import book4 from "@/component/assets/images/Book4.webp";
 import book5 from "@/component/assets/images/Book5.jpg";
+import Link from "next/link";
 
 const slides = [
     {
@@ -157,14 +158,16 @@ export default function HeroSlider() {
                                 {slide.desc}
                             </motion.p>
 
-                            <motion.button
-                                className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.5 }}
-                            >
-                                Browse Books
-                            </motion.button>
+                            <Link href="/books">
+                                <motion.button
+                                    className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                >
+                                    Browse Books
+                                </motion.button>
+                            </Link>
                         </motion.div>
                     </AnimatePresence>
                 </div>
