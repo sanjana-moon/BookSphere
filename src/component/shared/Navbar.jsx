@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Button, Link, Avatar } from "@heroui/react";
+import { Button, Avatar } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { TfiAlignLeft } from "react-icons/tfi";
 import { RxCross2, RxAvatar } from "react-icons/rx";
@@ -11,6 +11,7 @@ import { LuUserRoundPlus } from "react-icons/lu";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import logo from "@/component/assets/images/image.png";
+import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -127,7 +128,6 @@ const Navbar = () => {
 
         {/* RIGHT SECTION */}
         <div className="flex items-center gap-3">
-
           {/* DESKTOP AUTH */}
           <div className="hidden lg:flex items-center gap-3">
             {isMounted && user ? (
@@ -143,7 +143,6 @@ const Navbar = () => {
                   height={50}
                   className="rounded-full"
                 />
-
                 <MotionButton
                   radius="sm"
                   whileHover={{

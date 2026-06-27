@@ -7,20 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-    FaBook,
-    FaBookOpen,
-    FaBoxOpen,
-    FaCheckCircle,
-    FaHistory,
-    FaHome,
-    FaPlusCircle,
-    FaSignOutAlt,
-    FaStar,
-    FaTachometerAlt,
-    FaTruck,
-    FaUserShield,
-} from "react-icons/fa";
+import { FaBook, FaBookOpen, FaBoxOpen, FaCheckCircle, FaHistory, FaHome, FaPlusCircle, FaSignOutAlt, FaStar, FaTachometerAlt, FaTruck, FaUserShield, } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const userMenu = [
