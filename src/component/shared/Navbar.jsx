@@ -43,11 +43,38 @@ const Navbar = () => {
     { href: "/books", label: "Browse Books" },
   ];
 
-  const dashboardLinks = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/my-orders", label: "My Orders" },
-    { href: "/wishlist", label: "Wishlist" },
-  ];
+  // const dashboardLinks = [
+  //   { href: "/dashboard", label: "Dashboard" },
+  //   { href: "/my-orders", label: "My Orders" },
+  //   { href: "/wishlist", label: "Wishlist" },
+  // ];
+  const role = user?.role;
+  let dashboardLinks = [];
+
+  if (role === "admin") {
+    dashboardLinks = [
+      { key: "overview", label: "Overview", href: "/dashboard/admin" },
+      { key: "approval-queue", label: "Book Approval Queue", href: "/dashboard/admin/approval-queue" },
+      { key: "users", label: "Manage Users", href: "/dashboard/admin/users" },
+      { key: "books", label: "Manage All Books", href: "/dashboard/admin/manage-books" },
+      { key: "transactions", label: "View All Transactions", href: "/dashboard/admin/transactions" },
+    ];
+  } else if (role === "librarian") {
+    dashboardLinks = [
+      { key: "overview", label: "Overview", href: "/dashboard/librarian" },
+      { key: "add-book", label: "Add Book", href: "/dashboard/librarian/add-books" },
+      { key: "inventory", label: "Manage Inventory", href: "/dashboard/librarian/inventory" },
+      { key: "deliveries", label: "Manage Deliveries", href: "/dashboard/librarian/deliveries" },
+    ];
+  } else {
+    // Normal User
+    dashboardLinks = [
+      { key: "overview", label: "Overview", href: "/dashboard/user" },
+      { key: "deliveries", label: "Delivery History", href: "/dashboard/user/user-deliveries" },
+      { key: "reading-list", label: "My Reading List", href: "/dashboard/user/reading-list" },
+      { key: "reviews", label: "My Reviews", href: "/dashboard/user/reviews" },
+    ];
+  }
 
   return (
     <nav className="sticky top-0 z-50 border-b border-[#E8EFFE] bg-[#EEF2FF]/80 backdrop-blur-md shadow-sm">
@@ -78,7 +105,7 @@ const Navbar = () => {
           ))}
 
           {user && (
-            <li className="relative group">
+            <Link href="/dashboard" className="relative group">
               <button className="text-[#6B7280] hover:text-[#0A1F5C]">
                 Dashboard
               </button>
@@ -94,7 +121,7 @@ const Navbar = () => {
                   </Link>
                 ))}
               </div>
-            </li>
+            </Link>
           )}
         </ul>
 

@@ -4,6 +4,10 @@ import Image from "next/image";
 import { FaArrowLeft } from "react-icons/fa";
 import BookPurchaseWidget from "@/component/books/BookPurchaseWidget";
 import { baseURL } from "@/lib/api/baseUrl";
+import { canReviewBook, fetchBookReviews } from "@/lib/api/books/data";
+import BookReviewSection from "@/component/books/BookReviewSection";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const fetchBook = async (id) => {
     const res = await fetch(`${baseURL}/api/single-book/${id}`);
@@ -11,9 +15,19 @@ const fetchBook = async (id) => {
     return data;
 };
 
+
 export default async function BookDetailsPage({ params }) {
     const { id } = await params;
-    const book = await fetchBook(id);    
+    const book = await fetchBook(id);
+    const reviews = await fetchBookReviews(id);
+
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    const permission = session
+        ? await canReviewBook(id, session.user.email)
+        : { canReview: false };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#EEF2FF] via-white to-[#F8FAFF] py-12 px-4">
@@ -68,11 +82,10 @@ export default async function BookDetailsPage({ params }) {
                         </span>
 
                         <span
-                            className={`px-4 py-2 rounded-full text-sm font-medium ${
-                                book?.publishStatus === "Published"
-                                    ? "bg-green-100 text-green-700"
-                                    : "bg-red-100 text-red-700"
-                            }`}
+                            className={`px-4 py-2 rounded-full text-sm font-medium ${book?.publishStatus === "Published"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                                }`}
                         >
                             {book?.publishStatus}
                         </span>
@@ -119,11 +132,20 @@ export default async function BookDetailsPage({ params }) {
 
                     {/* PURCHASE WIDGET */}
                     <BookPurchaseWidget
+                        className="flex justify-end"
                         deliveryFee={book?.deliveryFee}
                         availability={book?.availability || 1}
                         bookId={book?._id}
                         bookTitle={book?.title}
                     />
+
+                    <BookReviewSection
+                        reviews={reviews}
+                        canReview={permission.canReview}
+                        book={book}
+                        user={session?.user}
+                    />
+
                 </div>
             </div>
         </div>

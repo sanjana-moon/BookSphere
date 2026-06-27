@@ -20,6 +20,28 @@ export const deleteBooks = async (id) => {
   return res;
 };
 
+export const updateReview = async (id, data) => {
+  return await serverMutation(
+    `/api/reviews/${id}`,
+    "PATCH",
+    data
+  );
+};
+
+export const deleteReview = async (id) => {
+  return await deleteMutation(
+    `/api/reviews/${id}`
+  );
+};
+
+export const addReview = async (data) => {
+  return await serverMutation(
+    "/api/books/review",
+    "POST",
+    data
+  );
+};
+
 export const updateStatus = async (data, id) => {
   const result = await serverMutation(`/api/admin/books/${id}`, "PATCH", data);
   revalidatePath("/api/admin/books")

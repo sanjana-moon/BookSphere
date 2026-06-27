@@ -1,3 +1,4 @@
+"use client"
 import { updateBooks } from "@/lib/api/books/actions";
 import { uploadImage } from "@/component/utils/uploadImage";
 import { Button, Input, Card, TextArea } from "@heroui/react";
@@ -57,11 +58,13 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBoo
             if (result.modifiedCount) {
                 setIsModalOpen(false);
                 toast.success("Book updated successfully");
-                redirect('/dashboard/librarian/inventory')
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500);
             }
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to update book");
+            console.log(error);
+            toast.error("Sanjana Moon");
         } finally {
             setEditingBook(null)
             setLoading(false);

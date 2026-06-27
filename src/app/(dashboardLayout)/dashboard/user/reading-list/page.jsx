@@ -1,11 +1,18 @@
-import React from 'react';
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { fetchReadingList } from "@/lib/api/books/data";
+import ReadingListClient from "./ReadingListClient";
 
-const ReadingListPage = () => {
-    return (
-        <div>
-            Reading List
-        </div>
+export default async function ReadingListPage() {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    const books = await fetchReadingList(
+        session.user.email
     );
-};
 
-export default ReadingListPage;
+    return (
+        <ReadingListClient books={books} />
+    );
+}
