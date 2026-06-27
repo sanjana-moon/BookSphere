@@ -31,9 +31,7 @@ export const toggleBookPublish = async (data, id) => {
     `/api/admin/books/${id}/publish`,
     "PATCH", data
   );
-
   revalidatePath("/dashboard/admin/manage-books");
-
   return result;
 };
 
@@ -43,9 +41,7 @@ export const changeUserRole = async (id, role) => {
     "PATCH",
     { role }
   );
-
   revalidatePath("/dashboard/admin/manage-users");
-
   return result;
 };
 
@@ -53,9 +49,7 @@ export const deleteUser = async (id) => {
   const result = await deleteMutation(
     `/api/admin/users/${id}`
   );
-
   revalidatePath("/dashboard/admin/manage-users");
-
   return result;
 };
 
@@ -64,8 +58,6 @@ export const updateDeliveryStatus = async (id) => {
     `/api/librarian/deliveries/${id}`,
     "PATCH"
   );
-
   revalidatePath("/dashboard/librarian/deliveries");
-
   return result;
 };

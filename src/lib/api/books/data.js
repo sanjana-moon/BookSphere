@@ -16,6 +16,10 @@ export const fetchBooks = async (query) => {
     return result;
 };
 
+export const fetchDeliveryHistory = async (email) => {
+    return await serverFetch(`/api/books/deliveries/${email}`);
+};
+
 export const fetchPendingBooks = async (query) => {
     const result = await serverFetch(`/api/admin/pending-books`);
     return result;

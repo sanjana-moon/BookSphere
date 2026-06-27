@@ -1,4 +1,5 @@
 import { baseURL } from "@/lib/api/baseUrl";
+import { createDelivery } from "@/lib/api/books/actions";
 import { stripe } from "@/lib/stripe";
 
 import {
@@ -38,13 +39,16 @@ export default async function PaymentSuccess({ searchParams }) {
         paymentStatus: session?.payment_status,
     };
 
-    await fetch(`${baseURL}/api/books/delivery`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paymentData),
-    });
+const res = await fetch(`${baseURL}/api/books/delivery`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(paymentData),
+});
+
+console.log("Status:", res.status);
+console.log("Response:", await res.text());
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center bg-[#EEF2FF] px-6 py-12">
@@ -146,7 +150,6 @@ export default async function PaymentSuccess({ searchParams }) {
                             Browse More Books
                         </Button>
                     </Link>
-
                 </CardFooter>
             </Card>
         </div>
