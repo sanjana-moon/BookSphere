@@ -29,7 +29,7 @@ const FeaturedBooks = async () => {
                 <Button
                     className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-800 rounded-lg font-medium text-white"
                 >
-                    Browse Books
+                    Browse more
                 </Button>
             </Link>
 
