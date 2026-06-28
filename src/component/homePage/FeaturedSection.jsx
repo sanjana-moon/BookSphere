@@ -1,7 +1,6 @@
 import { fetchFeaturedBooks } from "@/lib/api/books/data";
 import FeaturedCard from "./FeatureCard";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
 
 const FeaturedBooks = async () => {

@@ -2,14 +2,15 @@
 
 import EditBookModal from "@/component/books/EditBookModal";
 import DeleteBookModal from "@/component/books/DeleteBookModal";
-import { myBooks } from "@/lib/api/books/data";
 
-import { Card, Button, Spinner } from "@heroui/react";
+import { Card, Button } from "@heroui/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaEdit, FaTrash, FaEyeSlash, FaCheckCircle } from "react-icons/fa";
 
 const ManageInventoryPage = ({ books: initialBooks }) => {
     const [books, setBooks] = useState(initialBooks || []);
+    const router = useRouter();
 
     const [deletedId, setDeletedId] = useState(null);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -17,13 +18,9 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingBook, setEditingBook] = useState(null);
 
-    const refreshBooks = async () => {
-        const updated = await myBooks();
-        setBooks(updated || []);
+    const refreshBooks = () => {
+        router.refresh();
     };
-
-    // console.log({editingBook});
-    
 
     return (
         <>
@@ -77,7 +74,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-5">
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "Published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
                                                             {book.publishStatus}
                                                         </span>
                                                     </td>

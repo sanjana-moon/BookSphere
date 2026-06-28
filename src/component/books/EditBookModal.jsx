@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { redirect, useRouter } from "next/navigation";
 
 const CATEGORIES = [
     "Fiction",
@@ -20,7 +19,6 @@ const CATEGORIES = [
 ];
 
 const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBook }) => {
-    const router = useRouter();
     const [loading, setLoading] = useState(false);
 
     const {
