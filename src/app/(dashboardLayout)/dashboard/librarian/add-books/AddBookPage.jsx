@@ -9,11 +9,12 @@ import { Button, Input, Card, TextArea, TextField } from "@heroui/react";
 import { uploadImage } from "@/component/utils/uploadImage";
 import { useSession } from "@/lib/auth-client";
 import { addBooks } from "@/lib/api/books/actions";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const AddBookPage = () => {
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession()
+  const router = useRouter()
 
   const {
     register,
@@ -55,7 +56,7 @@ const AddBookPage = () => {
       if (result.insertedId) {
         toast.success("Book submitted successfully");
         reset();
-        redirect("/all-books")
+        router.push("/dashboard/librarian/inventory")
       }
     } catch (error) {
       toast.error("Failed to submit book");
