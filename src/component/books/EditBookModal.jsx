@@ -62,7 +62,7 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBoo
             }
         } catch (error) {
             console.log(error);
-            toast.error("Sanjana Moon");
+            toast.error("Something went wrong");
         } finally {
             setEditingBook(null)
             setLoading(false);
@@ -162,6 +162,7 @@ const EditBookModal = ({ isModalOpen, setIsModalOpen, editingBook, setEditingBoo
                                     placeholder="Enter the delivery fee"
                                     className="w-full"
                                     {...register("deliveryFee", {
+                                        valueAsNumber: true,
                                         required: "Delivery fee is required",
                                         min: { value: 0, message: "Fee cannot be negative" },
                                     })}

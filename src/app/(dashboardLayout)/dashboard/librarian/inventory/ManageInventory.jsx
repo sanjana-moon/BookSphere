@@ -7,6 +7,7 @@ import { Card, Button } from "@heroui/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEdit, FaTrash, FaEyeSlash, FaCheckCircle } from "react-icons/fa";
+import { updateBooks } from "@/lib/api/books/actions";
 
 const ManageInventoryPage = ({ books: initialBooks }) => {
     const [books, setBooks] = useState(initialBooks || []);
@@ -20,6 +21,28 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
 
     const refreshBooks = () => {
         router.refresh();
+    };
+
+    const togglePublish = async (book) => {
+        const newStatus = book.publishStatus === "Published" ? "Unpublished" : "Published";
+
+        try {
+            await updateBooks(
+                {
+                    deliveryFee: book.deliveryFee,
+                    publishStatus: newStatus,
+                },
+                book._id
+            );
+
+            setBooks((prev) =>
+                prev.map((b) =>
+                    b._id === book._id ? { ...b, publishStatus: newStatus } : b
+                )
+            );
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
@@ -89,9 +112,19 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                                 <FaTrash />
                                                             </Button>
                                                             {book.approvalStatus === "approved" && (
-                                                                <Button isIconOnly size="sm"
-                                                                    className={book.publishStatus === "Published" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}>
-                                                                    {book.publishStatus === "Published" ? <FaEyeSlash /> : <FaCheckCircle />}
+                                                                <Button
+                                                                    isIconOnly
+                                                                    size="sm"
+                                                                    className={
+                                                                        book.publishStatus === "Published"
+                                                                            ? "bg-amber-100 text-amber-700"
+                                                                            : "bg-green-100 text-green-700"
+                                                                    }
+                                                                    onPress={() => togglePublish(book)}
+                                                                >
+                                                                    {book.publishStatus === "Published"
+                                                                        ? <FaEyeSlash />
+                                                                        : <FaCheckCircle />}
                                                                 </Button>
                                                             )}
                                                         </div>
@@ -114,7 +147,7 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.approvalStatus === "approved" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
                                                         {book.approvalStatus}
                                                     </span>
-                                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "Published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${book.publishStatus === "published" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
                                                         {book.publishStatus}
                                                     </span>
                                                 </div>
@@ -128,9 +161,17 @@ const ManageInventoryPage = ({ books: initialBooks }) => {
                                                         <FaTrash />
                                                     </Button>
                                                     {book.approvalStatus === "approved" && (
-                                                        <Button size="sm"
-                                                            className={book.publishStatus === "Published" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}>
-                                                            {book.publishStatus === "Published" ? "Unpublish" : "Publish"}
+                                                        <Button
+                                                            size="sm"
+                                                            className={book.publishStatus === "published"
+                                                                ? "bg-amber-100 text-amber-700"
+                                                                : "bg-green-100 text-green-700"
+                                                            }
+                                                            onPress={() => togglePublish(book)}
+                                                        >
+                                                            {book.publishStatus === "published"
+                                                                ? "Unpublish"
+                                                                : "Publish"}
                                                         </Button>
                                                     )}
                                                 </div>

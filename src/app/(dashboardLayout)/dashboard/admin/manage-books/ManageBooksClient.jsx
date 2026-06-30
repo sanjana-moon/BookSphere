@@ -11,14 +11,22 @@ const ManageBooksClient = ({ books: initialBooks }) => {
 
     const handleTogglePublish = async (book) => {
         try {
-            const newStatus = book.publishStatus === "published" ? "unpublished" : "published";
-            await toggleBookPublish({ publishStatus: newStatus }, book._id);
+            const newStatus = book.publishStatus === "Published" ? "Unpublished" : "Published";
+            console.log(newStatus);
+
+            const result = await toggleBookPublish({ publishStatus: newStatus }, book._id);
+            console.log(result);
+
+
             setBooks((prev) =>
                 prev.map((item) =>
-                    item._id === book._id ? { ...item, publishStatus: newStatus } : item
+                    item._id === book._id
+                        ? { ...item, publishStatus: result.publishStatus ?? newStatus }
+                        : item
                 )
             );
-            toast.success(`Book ${newStatus} successfully.`);
+
+            toast.success(`Book ${result.publishStatus ?? newStatus} successfully.`);
         } catch (err) {
             console.error(err);
             toast.error("Failed to update publish status.");
@@ -28,6 +36,8 @@ const ManageBooksClient = ({ books: initialBooks }) => {
     const handleToggleApproval = async (book) => {
         try {
             const newStatus = book.approvalStatus === "approved" ? "pending" : "approved";
+            console.log(newStatus);
+
             await updateStatus({ approvalStatus: newStatus }, book._id);
 
             setBooks((prev) =>
@@ -81,15 +91,14 @@ const ManageBooksClient = ({ books: initialBooks }) => {
                                         <td className="px-6 py-5 font-semibold">{book.title}</td>
                                         <td className="px-6 py-5">{book.author}</td>
                                         <td className="px-6 py-5">{book.category}</td>
-                                        
+
                                         {/* Approval Column */}
                                         <td className="px-6 py-5">
                                             <Button
-                                                className={`px-3 rounded-full text-xs font-semibold ${
-                                                    book.approvalStatus === "approved"
-                                                        ? "bg-green-100 text-green-700"
-                                                        : "bg-yellow-100 text-yellow-700"
-                                                }`}
+                                                className={`px-3 rounded-full text-xs font-semibold ${book.approvalStatus === "approved"
+                                                    ? "bg-green-100 text-green-700"
+                                                    : "bg-yellow-100 text-yellow-700"
+                                                    }`}
                                                 onPress={() => handleToggleApproval(book)}
                                             >
                                                 {book.approvalStatus}
@@ -99,16 +108,22 @@ const ManageBooksClient = ({ books: initialBooks }) => {
                                         {/* Publish Column (Switched to Switch Component) */}
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
-                                                <Switch
-                                                    isSelected={book.publishStatus === "published"}
-                                                    onValueChange={() => handleTogglePublish(book)}
-                                                    size="sm"
-                                                    color="success"
-                                                >
-                                                    <span className="text-xs font-semibold capitalize text-slate-700">
-                                                        {book.publishStatus}
-                                                    </span>
-                                                </Switch>
+                                                <Button
+                                                    onPress={() => handleTogglePublish(book)}
+                                                    className={`px-3 rounded-full text-xs font-semibold ${book.publishStatus === "Published"
+                                                        ? "bg-green-100 text-green-700"
+                                                        : "bg-yellow-100 text-yellow-700"
+                                                        }`}>
+                                                    <Switch
+                                                        isSelected={book.publishStatus === "Published"}
+                                                        size="sm"
+                                                        color="success"
+                                                    >
+                                                        <span className="text-xs font-semibold capitalize text-slate-700">
+                                                            {book.publishStatus}
+                                                        </span>
+                                                    </Switch>
+                                                </Button>
                                             </div>
                                         </td>
 
