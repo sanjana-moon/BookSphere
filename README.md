@@ -1,10 +1,6 @@
 # 📚 Booksphere
 
 <p align="center">
-  <img src="https://i.ibb.co.com/NnxQdmV6/banner.png" alt="Booksphere Banner" width="100%">
-</p>
-
-<p align="center">
   <strong>An Online Book Delivery Management System</strong>
 </p>
 
