@@ -153,22 +153,6 @@ git clone https://github.com/your-username/booksphere.git
 npm install
 ```
 
-### Environment Variables
-
-Create a `.env.local` file and configure the following:
-
-```env
-NEXT_PUBLIC_SERVER_URI=
-
-MONGODB_URI=
-
-BETTER_AUTH_SECRET=
-
-BETTER_AUTH_URL=
-
-JWT_SECRET=
-```
-
 ### Run the Development Server
 
 ```bash
