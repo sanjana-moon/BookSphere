@@ -150,7 +150,7 @@ export default function HeroSlider() {
                             </motion.h1>
 
                             <motion.p
-                                className="mt-4 text-white text-lg"
+                                className="mt-3.5 text-white text-lg"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.35 }}
