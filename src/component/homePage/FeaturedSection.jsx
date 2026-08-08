@@ -16,7 +16,7 @@ const FeaturedBooks = async () => {
                 titles, trending masterpieces, and timeless classics curated just
                 for you.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 p-2">
                 {data.books.map((book) => (
                     <FeaturedCard
                         key={book._id}

@@ -61,7 +61,7 @@ export const fetchAllBooks = async () => {
 export const fetchFeaturedBooks = async () => {
   const query = new URLSearchParams({
     page: "1",
-    limit: "6",
+    limit: "8",
   });
 
   return await serverFetch(
