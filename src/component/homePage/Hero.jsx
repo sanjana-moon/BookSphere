@@ -1,101 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import book1 from "@/component/assets/images/Book-1.avif";
-import book2 from "@/component/assets/images/Book2.jpg";
-import book3 from "@/component/assets/images/Book3.webp";
-import book4 from "@/component/assets/images/Book4.webp";
-import book5 from "@/component/assets/images/Book5.jpg";
 import Link from "next/link";
+import Image from "next/image";
+import heroBg from "@/component/assets/images/Hero-bg.jpg";
+import heroBook from "@/component/assets/images/Hero-Book.png";
 
 const slides = [
     {
-        bg: "https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?cs=srgb&dl=pexels-jplenio-1103970.jpg&fm=jpg",
-        title: "Lose Yourself in Endless Pages",
-        desc: "Unearth curated collections designed to match your mood, expand your horizons, and guide you to your next favorite story.",
+        title: "YOUR NEXT CHAPTER, DELIVERED IN 30 MINUTES.",
+        desc: "From bestsellers to local indie finds—brought straight to your doorstep before your coffee gets cold.",
     },
     {
-        bg: "https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?cs=srgb&dl=pexels-jplenio-1103970.jpg&fm=jpg",
-        title: "Stories the World is Reading",
-        desc: "Connect with universal narratives. Dive into the chart-topping novels and acclaimed non-fiction capturing the hearts of millions across the globe.",
+        title: "LATE NIGHT BOOK CRAVINGS? DELIVERED 24/7.",
+        desc: "Instant, late-night courier for physical books when you need them most.",
     },
     {
-        bg: "https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?cs=srgb&dl=pexels-jplenio-1103970.jpg&fm=jpg",
-        title: "Cultivate Your Inner Universe",
-        desc: "Every book is a masterclass in imagination. Gather knowledge, gather perspective, and evolve with text that leaves a lasting impression.",
+        title: "NEVER RUN OUT OF GOOD STORIES.",
+        desc: "Personalized physical book delivery based on your reading taste.",
     },
 ];
-
-const allBooks = [
-    book1.src,
-    book2.src,
-    book3.src,
-    book4.src,
-    book5.src,
-];
-
-function BookStack({ books, cycleMs = 2400, exitMs = 600 }) {
-    const [order, setOrder] = useState(() => books.map((_, i) => i));
-    const [exitingIdx, setExitingIdx] = useState(null);
-    const orderRef = useRef(order);
-    orderRef.current = order;
-
-    useEffect(() => {
-        if (books.length < 2) return;
-
-        let exitTimeoutId;
-        const intervalId = setInterval(() => {
-            setExitingIdx(orderRef.current[0]);
-
-            exitTimeoutId = setTimeout(() => {
-                setOrder((prev) => [...prev.slice(1), prev[0]]);
-                setExitingIdx(null);
-            }, exitMs);
-        }, cycleMs);
-
-        return () => {
-            clearInterval(intervalId);
-            clearTimeout(exitTimeoutId);
-        };
-    }, [books, cycleMs, exitMs]);
-
-    return (
-        <div className="relative w-100 h-130">
-            {books.map((book, bookIdx) => {
-                const pos = order.indexOf(bookIdx);
-                const isExiting = exitingIdx === bookIdx;
-                const shouldAnimate = isExiting || pos === 0;
-
-                const target = isExiting
-                    ? { opacity: 0, x: 260, y: -30, rotate: 30, scale: 0.85 }
-                    : {
-                        opacity: 1,
-                        x: pos * 18,
-                        y: -pos * 18,
-                        rotate: pos * 6,
-                        scale: 1,
-                    };
-
-                return (
-                    <motion.img
-                        key={book}
-                        src={book}
-                        alt="book"
-                        className="absolute top-0 left-0 w-85 h-110 object-cover md:object-fit rounded-xl shadow-2xl border-4 border-white"
-                        style={{ zIndex: books.length - pos }}
-                        animate={target}
-                        transition={
-                            shouldAnimate
-                                ? { duration: exitMs / 1000, ease: "easeInOut" }
-                                : { duration: 0 }
-                        }
-                    />
-                );
-            })}
-        </div>
-    );
-}
 
 export default function HeroSlider() {
     const [index, setIndex] = useState(0);
@@ -111,70 +36,98 @@ export default function HeroSlider() {
     const slide = slides[index];
 
     return (
-        <div className="relative h-[80vh] w-full overflow-hidden">
-            {/* BACKGROUND */}
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={slide.bg}
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${slide.bg})` }}
-                    initial={{ opacity: 0, scale: 1.08 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1 }}
+        <div className="relative min-h-[85vh] w-full overflow-hidden bg-[#464e66] flex items-center">
+            {/* BACKGROUND IMAGE WITH BLUE linear OVERLAY */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src={heroBg}
+                    alt="Library Background"
+                    height={1080}
+                    width={1920}
+                    priority
+                    className="object-cover h-auto filter blur-sm scale-105 opacity-20"
                 />
-            </AnimatePresence>
-
-            {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-[#3B82F6]/10" />
+                {/* Radial cyan glow + deep navy linear overlay */}
+                <div className="absolute inset-0" />
+                <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none" />
+            </div>
 
             {/* CONTENT WRAPPER */}
-            <div className="relative z-10 flex items-center gap-20 h-full px-10 md:px-20 container mx-auto flex-col md:flex-row py-10">
-                {/* LEFT TEXT */}
+            <div className="relative z-10 container mx-auto px-6 md:px-16 py-12 flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+
+                {/* LEFT TEXT & ACTIONS */}
                 <div className="w-full md:w-1/2 text-white">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={slide.title}
-                            initial={{ opacity: 0, y: 40 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -40 }}
-                            transition={{ duration: 0.6 }}
+                            exit={{ opacity: 0, y: -30 }}
+                            transition={{ duration: 0.5 }}
+                            className="space-y-4"
                         >
-                            <motion.h1
-                                className="text-4xl md:text-5xl font-bold leading-tight"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                            >
+                            <span className="text-cyan-400 font-semibold tracking-wider text-xs uppercase flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                                BookSphere Engine
+                            </span>
+
+                            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight !text-white leading-tight">
                                 {slide.title}
-                            </motion.h1>
+                            </h1>
 
-                            <motion.p
-                                className="mt-3.5 text-white text-lg"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.35 }}
-                            >
+                            <p className="text-slate-300 text-base md:text-lg max-w-lg pt-1 leading-relaxed">
                                 {slide.desc}
-                            </motion.p>
+                            </p>
 
-                            <Link href="/books">
-                                <motion.button
-                                    className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                >
-                                    Browse Books
-                                </motion.button>
-                            </Link>
+                            <div className="pt-4 flex flex-wrap items-center gap-4">
+                                <Link href="/books">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="px-7 py-3.5 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 transition-all border border-blue-400/30 flex items-center gap-2"
+                                    >
+                                        Find Nearby Books
+                                    </motion.button>
+                                </Link>
+                            </div>
+
+                            {/* LIVE TICKER BADGE */}
+                            <div className="pt-4 flex items-center gap-2">
+                                <span className="px-3 py-1 bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-medium rounded-full flex items-center gap-2 backdrop-blur-md">
+                                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                                    Live Fleet Ticker
+                                </span>
+                                <span className="text-slate-400 text-xs">
+                                    1,200+ Books Delivered Today
+                                </span>
+                            </div>
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                <div className="flex w-1/2 justify-end md:justify-center mt-8 ml-5">
-                    <BookStack books={allBooks} />
+                {/* RIGHT VISUAL DISPLAY */}
+                <div className="w-full md:w-1/2 flex justify-center items-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="relative w-full max-w-lg aspect-square flex justify-center items-center"
+                    >
+                        {/* Soft cyan behind-the-book ambient glow */}
+                        <div className="absolute inset-0 bg-linear-to-tr from-blue-600/20 to-cyan-400/20 rounded-full blur-2xl transform scale-90 pointer-events-none" />
+
+                        <Image
+                            src={heroBook}
+                            alt="Booksphere Visual"
+                            width={600}
+                            height={600}
+                            priority
+                            className="relative z-10 object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-500"
+                        />
+                    </motion.div>
                 </div>
+
             </div>
         </div>
     );
